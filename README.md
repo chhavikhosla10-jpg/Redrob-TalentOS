@@ -1,177 +1,59 @@
 # 🚀 Redrob TalentOS
 
-### 🤖 AI-Powered Candidate Ranking & Recommendation System
+AI-powered candidate ranking system for the Redrob Intelligent Candidate Discovery & Ranking Challenge.
 
-👥 **Team:** Neura_Nova
-👩‍💻 **Team Leader:** Chhavi Khosla
+## 🌐 Live Demo
+https://redrob-talentos.onrender.com
 
----
+## 📘 API Documentation
+https://redrob-talentos.onrender.com/docs
 
-## 🎯 Problem Statement
+## 📌 What this repo contains
 
-Traditional recruitment systems rely heavily on keyword matching, often overlooking candidate potential, contextual experience, adaptability, and soft skills. This can lead to unsuitable hiring decisions and missed opportunities to identify high-potential talent.
+- `rank.py` — CPU-only heuristic ranker for the official candidates dataset
+- `outputs/Neura_Nova.csv` — final top-100 ranked candidate submission file
+- `main.py` — FastAPI demo endpoint for Render deployment
+- `requirements.txt` — minimal dependencies for demo deployment
+- `submission_metadata.yaml` — metadata template for the submission portal
 
----
+## 🧠 Methodology
 
-## 💡 Solution Overview
+The ranker scores candidates using the official JD requirements:
 
-**Redrob TalentOS** is an AI-powered candidate ranking system that evaluates applicants beyond simple keyword matching.
+- Applied ML / AI production experience
+- Search, ranking, retrieval, embeddings, vector databases, and recommendation systems
+- Python and production engineering background
+- Ranking evaluation exposure such as NDCG, MAP, MRR, and A/B testing
+- Location and relocation fit for Noida/Pune/India-based hiring
+- Redrob behavioral signals such as recruiter response rate, recent activity, notice period, profile completeness, and GitHub activity
 
-The platform leverages **NLP, Machine Learning, and Explainable AI** to understand job descriptions, extract meaningful candidate signals, and generate transparent candidate rankings.
+The system also down-weights weak-fit or risky profiles such as keyword-stuffed profiles, non-technical roles, long inactive candidates, consulting-only backgrounds, and profiles with suspicious/impossible skill signals.
 
----
+## ▶️ How to reproduce the CSV
 
-## ✨ Key Features
-
-✅ Semantic Job Description Understanding
-✅ Intelligent Candidate Signal Extraction
-✅ Multi-Dimensional Candidate Scoring
-✅ Explainable AI Recommendations
-✅ Fair & Transparent Hiring Decisions
-✅ Scalable API-Based Architecture
-
----
-
-## 🔄 System Workflow
-
-📄 Job Description Input
-⬇️
-🧠 Semantic JD Parsing
-⬇️
-🔍 Candidate Pool Retrieval
-⬇️
-📊 Skills & Experience Extraction
-⬇️
-📈 Candidate Scoring
-⬇️
-🏆 Ranking Generation
-⬇️
-💬 Explainability Report
-⬇️
-📋 Ranked Candidate Output
-
----
-
-## 🏗️ System Architecture
-
-### 🧠 JD Parsing Layer
-
-* Transformer-Based NLP Models
-
-### 🔎 Candidate Signal Extraction Layer
-
-* Skills Analysis
-* Experience Evaluation
-* Behavioral Indicators
-
-### ⚙️ Ranking Engine
-
-* Gradient Boosting Models
-* Ensemble Ranking Algorithms
-* Weighted Scoring Mechanism
-
-### 🔐 Explainability & Validation Layer
-
-* Transparent Decision Generation
-* Recommendation Justification
-* Validation Checks
-
-### 📊 Output Interface
-
-* Dashboard
-* API Integration
-
----
-
-## 🛠️ Technologies Used
-
-### 🤖 AI & Machine Learning
-
-* PyTorch
-* TensorFlow
-* Transformers
-
-### ⚡ Backend
-
-* FastAPI
-* Python
-
-### 🔍 Search & Retrieval
-
-* ElasticSearch
-
-### ☁️ Deployment
-
-* Docker
-* Kubernetes
-
----
-
-## 📈 Ranking Methodology
-
-The ranking engine evaluates:
-
-🎯 Technical Skills Match
-💼 Experience Relevance
-📜 Certifications
-📈 Career Growth Indicators
-💬 Communication Skills
-🤝 Behavioral Signals
-✅ Credibility Assessment
-
-Dynamic weighting generates the final candidate score.
-
----
-
-## 🛡️ Explainability & Validation
-
-✔️ Rankings grounded in verified candidate data
-✔️ No unsupported recommendations
-✔️ Low-quality profiles flagged automatically
-✔️ Data consistency and credibility checks
-
----
-
-## 🚀 Performance Highlights
-
-📈 20–30% higher ranking precision compared to keyword-based systems
-
-🎯 Better identification of hidden talent
-
-⏳ Reduced recruiter screening effort
-
-⚡ Faster and smarter hiring decisions
-
----
-
-## 📂 Repository Structure
+Place the official `candidates.jsonl` file in the repo root, then run:
 
 ```bash
-Redrob-TalentOS/
-│
-├── data/
-├── models/
-├── api/
-├── outputs/
-├── docs/
-├── README.md
-└── requirements.txt
+python rank.py --candidates candidates.jsonl --out outputs/Neura_Nova.csv
 ```
 
----
+Validate using the official validator:
 
-## 🔮 Future Enhancements
+```bash
+python validate_submission.py outputs/Neura_Nova.csv
+```
 
-* 🤖 AI Recruiter Assistant
-* 📊 Talent Analytics Dashboard
-* ⚖️ Bias Detection Module
-* 🎤 Interview Performance Prediction
-* ⚡ Real-Time Candidate Ranking
+## 📄 Submission File Format
 
----
+The generated CSV follows the required columns:
 
-## 🏁 Project Status
+```csv
+candidate_id,rank,score,reasoning
+```
 
-🚀 Prototype developed for the Redrob Ideathon Challenge.
+It contains exactly 100 ranked candidates.
 
-Built with the vision of making recruitment **smarter, fairer, and more explainable through AI.**
+## 👥 Team
+
+**Team Name:** Neura_Nova  
+**Team Leader:** Chhavi Khosla

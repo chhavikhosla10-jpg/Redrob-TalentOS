@@ -1,7 +1,2 @@
-fastapi
-pandas
-numpy
-scikit-learn
-torch
-transformers
-uvicorn
+fastapi==0.115.0
+uvicorn==0.30.6

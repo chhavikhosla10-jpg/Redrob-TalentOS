@@ -1,0 +1,15 @@
+team_name: Neura_Nova
+primary_contact_name: Chhavi Khosla
+primary_contact_email: chhavikhosla10@gmail.com
+github_repository_url: https://github.com/chhavikhosla10/Redrob-TalentOS
+sandbox_demo_link: https://redrob-talentos.onrender.com
+ai_tools_declared:
+  - ChatGPT
+compute_environment_summary: CPU-only Python ranker; tested locally in Python environment
+team_members:
+  - name: Chhavi Khosla
+    email: chhavikhosla10@gmail.com
+methodology_summary: >
+  Candidate ranking uses a CPU-only heuristic scoring pipeline aligned with the official Redrob JD.
+  It combines production AI/ML fit, retrieval/ranking/vector-search evidence, Python/product engineering background,
+  location fit, and Redrob behavioral signals such as response rate, activity, notice period, and GitHub activity.
