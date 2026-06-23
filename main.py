@@ -1,9 +1,10 @@
-# Redrob TalentOS
+from fastapi import FastAPI
 
-AI-powered candidate ranking system that evaluates candidates beyond keyword matching.
+app = FastAPI()
 
-## Features
-- Semantic JD Parsing
-- Candidate Signal Extraction
-- Explainable AI Rankings
-- Fair Hiring Recommendations
+@app.get("/")
+def home():
+    return {
+        "project": "Redrob TalentOS",
+        "status": "running"
+    }
