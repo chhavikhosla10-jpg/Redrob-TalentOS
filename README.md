@@ -201,3 +201,19 @@ Example Request
 ## 📄 License
 
 This project was developed for the **Redrob Intelligent Candidate Discovery & Ranking Challenge** and is intended for educational and demonstration purposes.
+
+---
+
+## 📸 Project Screenshots
+
+### 🏠 Home Page
+![Home Page](SS1)
+
+### 👨‍💻 Candidate Details
+![Candidate Details](SS2)
+
+### 🏆 AI Ranking Results
+![AI Ranking Results](SS3)
+
+### 📘 API Documentation
+![API Documentation](SS4)
