@@ -36,7 +36,7 @@ function addCandidate() {
         <input
           type="text"
           class="candidate-name"
-          placeholder="Example: Alice Johnson"
+          placeholder="Example: Priya Sharma"
         />
       </div>
 
@@ -94,7 +94,6 @@ function addCandidate() {
 function removeCandidate(button) {
   const candidateCard = button.closest(".candidate-card");
   candidateCard.remove();
-
   updateCandidateTitles();
 }
 
@@ -126,7 +125,7 @@ function collectCandidates() {
       skills: skillsText
         .split(",")
         .map((skill) => skill.trim())
-        .filter((skill) => skill.length > 0),
+        .filter(Boolean),
 
       experience:
         Number(card.querySelector(".candidate-experience").value) || 0,
@@ -173,9 +172,7 @@ function validateForm(jobDescription, candidates) {
     }
 
     if (!candidate.resume_summary) {
-      alert(
-        `Please enter the resume summary of Candidate ${index + 1}.`
-      );
+      alert(`Please enter the resume summary of Candidate ${index + 1}.`);
       return false;
     }
   }
@@ -203,63 +200,59 @@ async function rankCandidates() {
     candidates: candidates
   };
 
-  console.log("Sending data to backend:", requestBody);
-try {
-  const response = await fetch(
-    "https://redrob-ai-ranking-w00r.onrender.com/rank",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(requestBody)
-    }
-  );
-
-  const responseText = await response.text();
-
-  let data;
-
   try {
-    data = JSON.parse(responseText);
-  } catch {
-    data = responseText;
-  }
-
-  if (!response.ok) {
-    console.error("Backend error:", data);
-
-    throw new Error(
-      typeof data === "string"
-        ? data
-        : JSON.stringify(data, null, 2)
+    const response = await fetch(
+      "https://redrob-ai-ranking-w00r.onrender.com/rank",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestBody)
+      }
     );
+
+    const responseText = await response.text();
+
+    let data;
+
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      data = responseText;
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        typeof data === "string"
+          ? data
+          : JSON.stringify(data, null, 2)
+      );
+    }
+
+    const rankings = Array.isArray(data)
+      ? data
+      : data.rankings ||
+        data.results ||
+        data.ranked_candidates ||
+        [];
+
+    displayResults(rankings);
+  } catch (error) {
+    console.error("Ranking error:", error);
+
+    resultsContainer.innerHTML = `
+      <div class="result-card error-card">
+        <h3>Unable to analyze candidates</h3>
+        <p>The backend returned an error.</p>
+        <pre>${escapeHtml(error.message)}</pre>
+      </div>
+    `;
+
+    resultsSection.classList.remove("hidden");
+  } finally {
+    loadingBox.classList.add("hidden");
   }
-
-  const rankings = Array.isArray(data)
-    ? data
-    : data.rankings ||
-      data.results ||
-      data.ranked_candidates ||
-      [];
-
-  displayResults(rankings);
-
-} catch (error) {
-  console.error("Ranking error:", error);
-
-  resultsContainer.innerHTML = `
-    <div class="result-card error-card">
-      <h3>Unable to analyze candidates</h3>
-      <p>The backend returned an error.</p>
-      <pre>${escapeHtml(error.message)}</pre>
-    </div>
-  `;
-
-  resultsSection.classList.remove("hidden");
-
-} finally {
-  loadingBox.classList.add("hidden");
 }
 
 function displayResults(rankings) {
@@ -359,18 +352,9 @@ function displayResults(rankings) {
 }
 
 function getRankIcon(index) {
-  if (index === 0) {
-    return "🥇";
-  }
-
-  if (index === 1) {
-    return "🥈";
-  }
-
-  if (index === 2) {
-    return "🥉";
-  }
-
+  if (index === 0) return "🥇";
+  if (index === 1) return "🥈";
+  if (index === 2) return "🥉";
   return "🏅";
 }
 
