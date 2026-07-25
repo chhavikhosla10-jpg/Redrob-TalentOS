@@ -204,17 +204,21 @@ async function rankCandidates() {
   };
 
   console.log("Sending data to backend:", requestBody);
-
-  try {
-    const response = await fetch("https://redrob-ai-ranking.onrender.com/rank", {
+try {
+  const response = await fetch(
+    "https://redrob-ai-ranking-w00r.onrender.com/rank",
+    {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json"
       },
-
       body: JSON.stringify(requestBody)
-    });
+    }
+  );
+
+ 
+}
+
 
     const responseText = await response.text();
 
