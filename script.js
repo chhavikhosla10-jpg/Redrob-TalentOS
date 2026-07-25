@@ -216,59 +216,50 @@ try {
     }
   );
 
- 
-}
+  const responseText = await response.text();
 
+  let data;
 
-    const responseText = await response.text();
-
-    let data;
-
-    try {
-      data = JSON.parse(responseText);
-    } catch {
-      data = responseText;
-    }
-
-    if (!response.ok) {
-      console.error("Backend error:", data);
-
-      throw new Error(
-        typeof data === "string"
-          ? data
-          : JSON.stringify(data, null, 2)
-      );
-    }
-
-    console.log("Backend response:", data);
-
-    const rankings = Array.isArray(data)
-      ? data
-      : data.rankings ||
-        data.results ||
-        data.ranked_candidates ||
-        [];
-
-    displayResults(rankings);
-  } catch (error) {
-    console.error("Ranking error:", error);
-
-    resultsContainer.innerHTML = `
-      <div class="result-card error-card">
-        <h3>Unable to analyze candidates</h3>
-
-        <p>
-          The backend returned an error.
-        </p>
-
-        <pre>${escapeHtml(error.message)}</pre>
-      </div>
-    `;
-
-    resultsSection.classList.remove("hidden");
-  } finally {
-    loadingBox.classList.add("hidden");
+  try {
+    data = JSON.parse(responseText);
+  } catch {
+    data = responseText;
   }
+
+  if (!response.ok) {
+    console.error("Backend error:", data);
+
+    throw new Error(
+      typeof data === "string"
+        ? data
+        : JSON.stringify(data, null, 2)
+    );
+  }
+
+  const rankings = Array.isArray(data)
+    ? data
+    : data.rankings ||
+      data.results ||
+      data.ranked_candidates ||
+      [];
+
+  displayResults(rankings);
+
+} catch (error) {
+  console.error("Ranking error:", error);
+
+  resultsContainer.innerHTML = `
+    <div class="result-card error-card">
+      <h3>Unable to analyze candidates</h3>
+      <p>The backend returned an error.</p>
+      <pre>${escapeHtml(error.message)}</pre>
+    </div>
+  `;
+
+  resultsSection.classList.remove("hidden");
+
+} finally {
+  loadingBox.classList.add("hidden");
 }
 
 function displayResults(rankings) {
