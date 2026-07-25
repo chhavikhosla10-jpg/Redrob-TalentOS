@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Redrob TalentOS</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-logo">R</div>
+
+      <div>
+        <h2>Redrob TalentOS</h2>
+        <p>AI Hiring Platform</p>
+      </div>
+    </div>
+
+    <div class="nav-badge">
+      AI Candidate Ranking
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content">
+
+      <span class="hero-label">
+        ✦ Intelligent Talent Discovery
+      </span>
+
+      <h1>
+        Find the best candidate with
+        <span>AI-powered ranking</span>
+      </h1>
+
+      <p>
+        Compare candidates using semantic matching, skills,
+        experience, projects and job relevance.
+      </p>
+
+      <button class="hero-button" onclick="scrollToRanking()">
+        Start Candidate Analysis
+      </button>
+
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <span>AI Match Preview</span>
+        <span class="live-badge">Live</span>
+      </div>
+
+      <div class="preview-candidate">
+        <div class="candidate-avatar">AK</div>
+
+        <div class="candidate-info">
+          <h3>Top Candidate</h3>
+          <p>Strong backend and AI profile</p>
+        </div>
+
+        <div class="preview-score">
+          94%
+        </div>
+      </div>
+
+      <div class="preview-bar">
+        <div class="preview-progress"></div>
+      </div>
+
+      <div class="preview-tags">
+        <span>Python</span>
+        <span>FastAPI</span>
+        <span>Machine Learning</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container" id="rankingSection">
+
+    <!-- Job Description -->
+    <section class="dashboard-card">
+
+      <div class="section-heading">
+        <div>
+          <span class="section-icon">📋</span>
+
+          <div>
+            <h2>Job Description</h2>
+            <p>Describe the position and required skills.</p>
+          </div>
+        </div>
+
+        <span class="step-badge">Step 1</span>
+      </div>
+
+      <textarea
+        id="jobDescription"
+        placeholder="Example: Looking for a Python developer with FastAPI, Machine Learning, SQL and REST API experience..."
+      ></textarea>
+
+    </section>
+
+    <!-- Candidates -->
+    <section class="dashboard-card">
+
+      <div class="section-heading">
+        <div>
+          <span class="section-icon">👥</span>
+
+          <div>
+            <h2>Candidates</h2>
+            <p>Add candidate profiles for AI analysis.</p>
+          </div>
+        </div>
+
+        <span class="step-badge">Step 2</span>
+      </div>
+
+      <div id="candidateContainer"></div>
+
+      <button
+        type="button"
+        class="secondary-button"
+        onclick="addCandidate()"
+      >
+        + Add Candidate
+      </button>
+
+    </section>
+
+    <!-- Analyze Button -->
+    <section class="analysis-action">
+
+      <div>
+        <h2>Ready to rank candidates?</h2>
+
+        <p>
+          TalentOS will compare every candidate with the job description.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="analyze-button"
+        onclick="rankCandidates()"
+      >
+        <span>✦</span>
+        Analyze Candidates
+      </button>
+
+    </section>
+
+    <!-- Loading -->
+    <div id="loading" class="loading-box hidden">
+      <div class="loader"></div>
+
+      <div>
+        <h3>AI analysis in progress</h3>
+        <p>Comparing skills, experience and semantic relevance...</p>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <section id="resultsSection" class="results-section hidden">
+
+      <div class="results-header">
+
+        <div>
+          <span class="section-icon">🏆</span>
+
+          <div>
+            <h2>AI Candidate Ranking</h2>
+            <p>Candidates ranked according to job relevance.</p>
+          </div>
+        </div>
+
+        <span class="completed-badge">Analysis Complete</span>
+
+      </div>
+
+      <div id="results"></div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Redrob TalentOS • AI-Powered Candidate Discovery and Ranking
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    function scrollToRanking() {
+      document
+        .getElementById("rankingSection")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+    }
+  </script>
+
+</body>
+</html>
