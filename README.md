@@ -204,16 +204,18 @@ This project was developed for the **Redrob Intelligent Candidate Discovery & Ra
 
 ---
 
+---
+
 ## 📸 Project Screenshots
 
-### 🏠 Home Page
-![Home Page](SS1)
-
-### 👨‍💻 Candidate Details
-![Candidate Details](SS2)
-
-### 🏆 AI Ranking Results
-![AI Ranking Results](SS3)
+### 🏆 AI Candidate Ranking Results
+![AI Candidate Ranking Results](SS1)
 
 ### 📘 API Documentation
-![API Documentation](SS4)
+![API Documentation](SS2)
+
+### 🏠 Home Page
+![Home Page](SS3)
+
+### 👨‍💻 Candidate Details
+![Candidate Details](SS4)
