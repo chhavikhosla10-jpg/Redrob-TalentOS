@@ -206,7 +206,7 @@ async function rankCandidates() {
   console.log("Sending data to backend:", requestBody);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/rank", {
+    const response = await fetch("https://redrob-ai-ranking.onrender.com/rank", {
       method: "POST",
 
       headers: {
