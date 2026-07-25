@@ -1,83 +1,105 @@
-from sentence_transformers import SentenceTransformer
+import re
+from typing import Any
+
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+def normalize_text(text: str) -> str:
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9+#.\s-]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
-def calculate_semantic_score(job_description: str, candidate_text: str) -> float:
-    embeddings = model.encode(
-        [job_description, candidate_text]
-    )
+def calculate_candidate_score(
+    job_description: str,
+    candidate: dict[str, Any],
+) -> dict[str, Any]:
 
-    similarity = cosine_similarity(
-        [embeddings[0]],
-        [embeddings[1]]
-    )[0][0]
-
-    return round(float(similarity) * 100, 2)
-
-
-def score_candidate(candidate: dict, job_description: str) -> dict:
-    name = candidate.get("name", "Unknown Candidate")
     skills = candidate.get("skills", [])
-    experience = float(candidate.get("experience", 0))
-    education = candidate.get("education", "")
-    projects = int(candidate.get("projects", 0))
-    resume_summary = candidate.get("resume_summary", "")
 
-    candidate_text = f"""
-    Education: {education}
-    Skills: {", ".join(skills)}
-    Experience: {experience} years
-    Projects: {projects}
-    Resume summary: {resume_summary}
-    """
-
-    semantic_score = calculate_semantic_score(
-        job_description,
-        candidate_text
+    candidate_text = " ".join(
+        [
+            " ".join(skills),
+            str(candidate.get("education", "")),
+            str(candidate.get("resume_summary", "")),
+        ]
     )
 
-    experience_score = min(experience * 5, 15)
-    project_score = min(projects * 2.5, 10)
+    documents = [
+        normalize_text(job_description),
+        normalize_text(candidate_text),
+    ]
+
+    vectorizer = TfidfVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2),
+    )
+
+    vectors = vectorizer.fit_transform(documents)
+
+    similarity_score = float(
+        cosine_similarity(
+            vectors[0:1],
+            vectors[1:2],
+        )[0][0]
+    )
+
+    job_text = normalize_text(job_description)
+
+    matched_skills = [
+        skill
+        for skill in skills
+        if normalize_text(skill) in job_text
+    ]
+
+    skill_score = (
+        len(matched_skills) / len(skills)
+        if skills
+        else 0
+    )
+
+    experience = float(candidate.get("experience", 0))
+    project_count = float(candidate.get("projects", 0))
+
+    experience_score = min(experience / 5, 1)
+    project_score = min(project_count / 6, 1)
 
     final_score = (
-        semantic_score * 0.75
-        + experience_score
-        + project_score
+        similarity_score * 45
+        + skill_score * 35
+        + experience_score * 12
+        + project_score * 8
     )
 
     return {
-        "name": name,
-        "score": round(min(final_score, 100), 2),
-        "semantic_match": semantic_score,
-        "experience_score": round(experience_score, 2),
-        "project_score": round(project_score, 2)
+        **candidate,
+        "score": round(final_score, 2),
+        "matched_skills": matched_skills,
     }
 
 
 def rank_candidates(
-    candidates: list[dict],
-    job_description: str
-) -> list[dict]:
-    ranked_candidates = []
+    job_description: str,
+    candidates: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
 
-    for candidate in candidates:
-        result = score_candidate(
+    ranked_candidates = [
+        calculate_candidate_score(
+            job_description,
             candidate,
-            job_description
         )
-        ranked_candidates.append(result)
+        for candidate in candidates
+    ]
 
     ranked_candidates.sort(
-        key=lambda item: item["score"],
-        reverse=True
+        key=lambda candidate: candidate["score"],
+        reverse=True,
     )
 
     for index, candidate in enumerate(
         ranked_candidates,
-        start=1
+        start=1,
     ):
         candidate["rank"] = index
 
