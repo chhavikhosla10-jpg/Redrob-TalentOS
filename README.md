@@ -206,16 +206,16 @@ This project was developed for the **Redrob Intelligent Candidate Discovery & Ra
 
 ---
 
-## 📸 Screenshots 
- 
-### 1. AI Candidate Ranking Results 
-![AI Candidate Ranking Results](screenshot/AI%20Candidate%20Ranking%20Results.png) 
- 
-### 2. API Documentation 
-![API Documentation](screenshot/API%20Documentation.png) 
- 
-### 3. Home Page 
-![Home Page](screenshot/Home%20Page.png) 
- 
-### 4. Candidate Details 
-![Candidate Details](screenshot/Candidate%20Details.png)
+## 📸 Screenshots
+
+### 1. AI Candidate Ranking Results
+![AI Candidate Ranking Results](./screenshots/AI%20Candidate%20Ranking%20Results.png)
+
+### 2. API Documentation
+![API Documentation](./screenshots/API%20Documentation.png)
+
+### 3. Home Page
+![Home Page](./screenshots/Home%20Page.png)
+
+### 4. Candidate Details
+![Candidate Details](./screenshots/Candidate%20Details.png)
