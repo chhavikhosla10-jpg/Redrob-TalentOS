@@ -16,10 +16,11 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://redrob-talent-os.vercel.app",
-        "http://127.0.0.1:5500",
-        "http://localhost:5500",
-    ],
+    "https://redrobbos.netlify.app",
+    "https://redrob-talent-os.vercel.app",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+],
     allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
