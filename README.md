@@ -6,7 +6,7 @@ An AI-powered Candidate Ranking System built for the **Redrob Intelligent Candid
 
 ## 🌐 Live Demo
 
-**Frontend:** https://redrob-talent-os.vercel.app
+**Frontend:** https://redrobbos.netlify.app
 
 **Backend API:** https://redrob-ai-ranking-w00r.onrender.com
 
